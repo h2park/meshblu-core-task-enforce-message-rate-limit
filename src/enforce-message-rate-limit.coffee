@@ -3,6 +3,9 @@ http = require 'http'
 
 class EnforceMessageRateLimit
   constructor: (options={}) ->
+    {@cache, @Date, @msgRateLimit} = options
+    @Date ?= Date
+    @msgRateLimit ?= 20*60 # messages per minute
 
   _doCallback: (request, code, callback) =>
     response =
@@ -13,9 +16,18 @@ class EnforceMessageRateLimit
     callback null, response
 
   do: (request, callback) =>
-    {uuid, messageType, options} = request.metadata
-    message = JSON.parse request.rawData
+    uuid = request?.metadata?.auth?.as
+    uuid ?= request?.metadata?.auth?.uuid
+    minuteKey = @getMinuteKey()
+    @cache.hget minuteKey, uuid, (error, msgRate) =>
+      return @_doCallback request, 500, callback if error?
+      msgRate = parseInt msgRate
+      return @_doCallback request, 429, callback if msgRate >= @msgRateLimit
+      return @_doCallback request, 204, callback
 
-    return @_doCallback request, 204, callback
+  getMinuteKey: ()=>
+    time = @Date.now()
+    @startMinute = Math.floor(time / (1000*60))
+    return "message-rate:minute-#{@startMinute}"
 
 module.exports = EnforceMessageRateLimit
