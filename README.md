@@ -1,8 +1,8 @@
-# enforce-message-rate-limit
+# meshblu-core-task-enforce-message-rate-limit
 
-[![Dependency status](http://img.shields.io/david/octoblu/enforce-message-rate-limit.svg?style=flat)](https://david-dm.org/octoblu/enforce-message-rate-limit)
-[![devDependency Status](http://img.shields.io/david/dev/octoblu/enforce-message-rate-limit.svg?style=flat)](https://david-dm.org/octoblu/enforce-message-rate-limit#info=devDependencies)
-[![Build Status](http://img.shields.io/travis/octoblu/enforce-message-rate-limit.svg?style=flat&branch=master)](https://travis-ci.org/octoblu/enforce-message-rate-limit)
+[![Dependency status](http://img.shields.io/david/octoblu/meshblu-core-task-enforce-message-rate-limit.svg?style=flat)](https://david-dm.org/octoblu/meshblu-core-task-enforce-message-rate-limit)
+[![devDependency Status](http://img.shields.io/david/dev/octoblu/meshblu-core-task-enforce-message-rate-limit.svg?style=flat)](https://david-dm.org/octoblu/meshblu-core-task-enforce-message-rate-limit#info=devDependencies)
+[![Build Status](http://img.shields.io/travis/octoblu/meshblu-core-task-enforce-message-rate-limit.svg?style=flat&branch=master)](https://travis-ci.org/octoblu/meshblu-core-task-enforce-message-rate-limit)
 
 ## License
 
