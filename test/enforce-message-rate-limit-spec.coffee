@@ -5,7 +5,7 @@ EnforceMessageRateLimit = require '../'
 MeshbluCoreCache = require 'meshblu-core-cache'
 
 describe 'EnforceMessageRateLimit', ->
-  before ->
+  beforeEach ->
     @clientKey = uuid.v1()
     @client = redis.createClient @clientKey
     cache = new MeshbluCoreCache client: redis.createClient @clientKey
@@ -23,7 +23,7 @@ describe 'EnforceMessageRateLimit', ->
 
   describe '->do', ->
     context 'when given a valid message', ->
-      before (done) ->
+      beforeEach (done) ->
         @sut.do @request, (error, @response) => done error
 
       it 'should have no keys in redis', (done) ->
@@ -41,10 +41,10 @@ describe 'EnforceMessageRateLimit', ->
         expect(@response).to.deep.equal expectedResponse
 
     context 'when the rate is set low and messaged again', ->
-      before (done) ->
-        @client.hset @sut.getMinuteKey(), 'electric-eels', @sut.msgRateLimit/2, done
+      beforeEach (done) ->
+        @client.hset @sut.rateLimitChecker.getMinuteKey(), 'electric-eels', @sut.rateLimitChecker.msgRateLimit/2, done
 
-      before (done) ->
+      beforeEach (done) ->
         @sut.do @request, (error, @response) => done error
 
       it 'should return a 204', ->
@@ -57,7 +57,7 @@ describe 'EnforceMessageRateLimit', ->
         expect(@response).to.deep.equal expectedResponse
 
       context 'when given another message with an "as" in auth', ->
-        before (done) ->
+        beforeEach (done) ->
           @request =
             metadata:
               responseId: 'its-electric'
@@ -80,10 +80,10 @@ describe 'EnforceMessageRateLimit', ->
           expect(@response).to.deep.equal expectedResponse
 
     context 'when the rate is set high and messaged again', ->
-      before (done) ->
-        @client.hset @sut.getMinuteKey(), 'electric-eels', @sut.msgRateLimit, done
+      beforeEach (done) ->
+        @client.hset @sut.rateLimitChecker.getMinuteKey(), 'electric-eels', @sut.rateLimitChecker.msgRateLimit, done
 
-      before (done) ->
+      beforeEach (done) ->
         @sut.do @request, (error, @response) => done error
 
       it 'should return a 429', ->
@@ -96,7 +96,7 @@ describe 'EnforceMessageRateLimit', ->
         expect(@response).to.deep.equal expectedResponse
 
       context 'when given another message with an "as" in auth', ->
-        before (done) ->
+        beforeEach (done) ->
           @request =
             metadata:
               responseId: 'its-electric'

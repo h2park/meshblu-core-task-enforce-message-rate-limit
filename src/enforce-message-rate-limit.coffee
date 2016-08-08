@@ -1,11 +1,12 @@
-_    = require 'lodash'
-http = require 'http'
+_                = require 'lodash'
+http             = require 'http'
+RateLimitChecker = require 'meshblu-core-rate-limit-checker'
 
 class EnforceMessageRateLimit
   constructor: (options={}) ->
     {@cache, @Date, @msgRateLimit} = options
     @Date ?= Date
-    @msgRateLimit ?= 20*60 # messages per minute
+    @rateLimitChecker = new RateLimitChecker {client: @cache, @Date, @msgRateLimit}
 
   _doCallback: (request, code, callback) =>
     response =
@@ -18,16 +19,12 @@ class EnforceMessageRateLimit
   do: (request, callback) =>
     uuid = request?.metadata?.auth?.as
     uuid ?= request?.metadata?.auth?.uuid
-    minuteKey = @getMinuteKey()
-    @cache.hget minuteKey, uuid, (error, msgRate) =>
+    @rateLimitChecker.isLimited {uuid}, (error, result) =>
       return @_doCallback request, 500, callback if error?
-      msgRate = parseInt msgRate
-      return @_doCallback request, 429, callback if msgRate >= @msgRateLimit
-      return @_doCallback request, 204, callback
-
-  getMinuteKey: ()=>
-    time = @Date.now()
-    @startMinute = Math.floor(time / (1000*60))
-    return "message-rate:minute-#{@startMinute}"
+      if result
+        code = 429
+      else
+        code = 204
+      return @_doCallback request, code, callback
 
 module.exports = EnforceMessageRateLimit
