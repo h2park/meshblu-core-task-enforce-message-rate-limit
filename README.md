@@ -1,8 +1,13 @@
 # meshblu-core-task-enforce-message-rate-limit
 
+[![Build Status](https://travis-ci.org/octoblu/meshblu-core-task-enforce-message-rate-limit.svg?branch=master)](https://travis-ci.org/octoblu/meshblu-core-task-enforce-message-rate-limit)
+[![Test Coverage](https://codecov.io/gh/octoblu/meshblu-core-task-enforce-message-rate-limit/branch/master/graph/badge.svg)](https://codecov.io/gh/octoblu/meshblu-core-task-enforce-message-rate-limit)
 [![Dependency status](http://img.shields.io/david/octoblu/meshblu-core-task-enforce-message-rate-limit.svg?style=flat)](https://david-dm.org/octoblu/meshblu-core-task-enforce-message-rate-limit)
 [![devDependency Status](http://img.shields.io/david/dev/octoblu/meshblu-core-task-enforce-message-rate-limit.svg?style=flat)](https://david-dm.org/octoblu/meshblu-core-task-enforce-message-rate-limit#info=devDependencies)
-[![Build Status](http://img.shields.io/travis/octoblu/meshblu-core-task-enforce-message-rate-limit.svg?style=flat&branch=master)](https://travis-ci.org/octoblu/meshblu-core-task-enforce-message-rate-limit)
+[![Slack Status](http://community-slack.octoblu.com/badge.svg)](http://community-slack.octoblu.com)
+
+[![NPM](https://nodei.co/npm/meshblu-core-task-enforce-message-rate-limit.svg?style=flat)](https://npmjs.org/package/meshblu-core-task-enforce-message-rate-limit)
+[![Dependency status](http://img.shields.io/david/octoblu/meshblu-core-task-enforce-message-rate-limit.svg?style=flat)](https://david-dm.org/octoblu/meshblu-core-task-enforce-message-rate-limit)
 
 ## License
 
